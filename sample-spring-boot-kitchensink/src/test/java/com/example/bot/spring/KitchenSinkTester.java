@@ -76,7 +76,11 @@ public class KitchenSinkTester {
 	}
 	
 	@Test
+<<<<<<< HEAD
 	public void testFound2() throws Exception {
+=======
+	public void testFoundD() throws Exception {
+>>>>>>> test
 		boolean thrown = false;
 		String result = null;
 		try {

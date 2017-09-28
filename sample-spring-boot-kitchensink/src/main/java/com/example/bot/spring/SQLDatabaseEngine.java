@@ -35,7 +35,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 			}
 			catch (Exception e) {
 				System.out.println(e);
-				stmt = getConnection().prepareStatement("ALTER TABLE messages A DD hit int DEFAULT 0");
+				stmt = getConnection().prepareStatement("ALTER TABLE messages ADD hit int DEFAULT 0");
 				stmt.executeUpdate();
 				stmt = getConnection().prepareStatement("UPDATE messages SET hi t = ? WHERE response = ?");
 				int hit = 1;

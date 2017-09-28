@@ -17,7 +17,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	String search(String text) throws Exception {
 		//Write your code here
 		
-		PreparedStatement stmt = getConnection().prepareStatement("SELECT id, name, phone FROM coolChatbotTable where name like concat('%', ?, '%')" );
+		PreparedStatement stmt = getConnection().prepareStatement("SELECT response FROM coolChatbotTable where name like concat('%', ?, '%')" );
 		stmt.setString(1, text);
 		
 		ResultSet rs = stmt.executeQuery();
@@ -25,21 +25,21 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 			String response = rs.getString("response");
 			try {
 				
-				int hit = rs.getInt("hit");
-				stmt = getConnection().prepareStatement("UPDATE messages SET hi t=? WHERE response = ?");
-				stmt.setInt(1, ++hit);
-				stmt.setString(2, "response");
+//				int hit = rs.getInt("hit");
+//				stmt = getConnection().prepareStatement("UPDATE messages SET hit=? WHERE response = ?");
+//				stmt.setInt(1, ++hit);
+				stmt.setString(1, "response");
 				stmt.executeUpdate();
 				return response + " " + String.valueOf(hit);
 				
 			}
 			catch (Exception e) {
 				System.out.println(e);
-				stmt = getConnection().prepareStatement("ALTER TABLE messages ADD hit int DEFAULT 0");
+//				stmt = getConnection().prepareStatement("ALTER TABLE messages ADD hit int DEFAULT 0");
 				stmt.executeUpdate();
-				stmt = getConnection().prepareStatement("UPDATE messages SET hi t = ? WHERE response = ?");
-				int hit = 1;
-				stmt.setInt(1,  hit);
+//				stmt = getConnection().prepareStatement("UPDATE messages SET hit = ? WHERE response = ?");
+//				int hit = 1;
+//				stmt.setInt(1,  hit);
 				stmt.setString(2, "reponse");
 				stmt.executeUpdate();
 				return response + " " + String.valueOf(hit);

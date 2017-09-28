@@ -1,10 +1,14 @@
 package com.example.bot.spring;
 
 import lombok.extern.slf4j.Slf4j;
+
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.net.URISyntaxException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 
 @Slf4j
@@ -12,7 +16,47 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
 		//Write your code here
-		return null;
+		
+		PreparedStatement stmt = getConnection().prepareStatement("SELECT id, name, phone FROM coolChatbotTable where name like concat('%', ?, '%')" );
+		stmt.setString(1, text);
+		
+		ResultSet rs = stmt.executeQuery();
+		if (rs.next() ) {
+			String response = rs.getString("response");
+			try {
+				
+				int hit = rs.getInt("hit");
+				stmt = getConnection().prepareStatement("UPDATE messages SET hi t=? WHERE response = ?");
+				stmt.setInt(1, ++hit);
+				stmt.setString(2, "response");
+				stmt.executeUpdate();
+				return response + " " + String.valueOf(hit);
+				
+			}
+			catch (Exception e) {
+				System.out.println(e);
+				stmt = getConnection().prepareStatement("ALTER TABLE messages A DD hit int DEFAULT 0");
+				stmt.executeUpdate();
+				stmt = getConnection().prepareStatement("UPDATE messages SET hi t = ? WHERE response = ?");
+				int hit = 1;
+				stmt.setInt(1,  hit);
+				stmt.setString(2, "reponse");
+				stmt.executeUpdate();
+				return response + " " + String.valueOf(hit);
+			}
+		}
+		throw new Exception("NOT FOUND");
+//			}
+		
+					
+	
+		
+//		rs.close();
+//		stmt.close()
+//		
+//		connection.close();
+		
+//		return null;
 	}
 	
 	
@@ -33,3 +77,4 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	}
 
 }
+

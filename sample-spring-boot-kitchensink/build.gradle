@@ -22,5 +22,5 @@ dependencies {
 }
 
 test {
-    environment "DATABASE_URL", "PUT YOUR URI HERE" 
+    environment "DATABASE_URL", "postgres://xqufutyiyqkofz:7a0b64e5a432243216fda380e2437e270077c6fdcf8a0e49f874217021e6da1f@ec2-54-225-192-243.compute-1.amazonaws.com:5432/d3q92fcto22dn6" 
 }

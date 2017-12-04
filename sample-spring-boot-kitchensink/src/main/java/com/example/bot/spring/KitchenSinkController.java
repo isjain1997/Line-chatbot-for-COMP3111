@@ -86,6 +86,13 @@ import java.net.URI;
 
 @Slf4j
 @LineMessageHandler
+/**
+* This is an example of javadoc for you to refer to : Kitchensinkcontroller is the mediator of all classes.
+*
+* @author  Ishan Jain
+* @version 1.0
+* @since   2017-12-04
+*/
 public class KitchenSinkController {
 	
 
